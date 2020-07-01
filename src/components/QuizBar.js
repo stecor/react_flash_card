@@ -1,24 +1,21 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDumbbell,faFont, faFileAlt, faDice } from '@fortawesome/free-solid-svg-icons';
-import { library } from '@fortawesome/fontawesome-svg-core'
+import QuizType from './QuizType';
 
-library.add(faDumbbell);
-library.add(faFont);
-library.add(faFileAlt);
-library.add(faDice);
+// npm i --save @fortawesome/fontawesome-svg-core
+// npm i --save @fortawesome/free-solid-svg-icons
+// npm i --save @fortawesome/react-fontawesome
+
 
 function QuizBar(props){
     return(
       <div className="quiz-bar">
-            <h1>Choose your study type</h1>
-            <ul className="nav nav-pills nav-fill">
-              <li className="col-sm-3 text-center">
-                <div className="nav-card">
-                  <FontAwesomeIcon icon="dice" size="4x"/>
-                </div>
-              </li>
-            </ul>
+        <h1>Choose your study type</h1>
+        <ul className="nav nav-pills nav-fill">
+          <QuizType icon="dice" quizType="Random"/>
+          <QuizType icon="file-alt" quizType="Regular"/>
+          <QuizType icon="dumbbell" quizType="Weighted"/>
+          <QuizType icon="font" quizType="Multi"/>
+        </ul>
       </div>
 
     )

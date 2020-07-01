@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import QuizBar from './components/QuizBar';
-import QuizType from './components/QuizType';
+
 
 class App extends Component{
 
@@ -16,7 +16,6 @@ class App extends Component{
     return(
           <div className="App">
               <QuizBar />
-              <QuizType/>
           </div>
     )
   }
