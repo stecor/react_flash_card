@@ -15,7 +15,6 @@ class FlashCard extends Component {
     this.state={
       flipclass: "",
       questionData: "",
-      ready: false,
     }
   }
 
@@ -35,6 +34,7 @@ class FlashCard extends Component {
     console.log(this.props.cardStyle);
 
     const cardStyle = this.props.cardStyle;
+
     if((cardStyle === 'Random')||(cardStyle === 'Regular')){
       path = this.apiHostRoot+'/all';
     }else if(cardStyle === 'Weighted'){
@@ -46,14 +46,15 @@ class FlashCard extends Component {
       // console.log(response.data);
       this.setState({
         questionData: response.data,
-        ready: true,
       })
+      this.props.nowReady();
     })
 
   }
 
     render(){
-      if(!this.state.ready){
+
+      if(!this.props.ready){
         this.newCard();
         return(
           <div className="spinner-wrapper">
@@ -61,11 +62,23 @@ class FlashCard extends Component {
           </div>
         )
       }
+
+      const cardStyle = this.props.cardStyle;
+      let card;
+
+      if(cardStyle === 'Multi'){
+        card = <MultiCard questionData={this.state.questionData}/>
+      }else if(cardStyle === 'Regular'){
+        card = <RegularCard questionData={this.state.questionData}/>
+      }else{
+        card = <RandomWeighted questionData={this.state.questionData}/>
+      }
+
       return(
         <div >
           <div className="row align-items-center card-holder">
            <div onClick={this.flip} className={`col-sm-6 offset-sm-3 card mb-3 ${this.state.flipclass}`}>
-              <RegularCard questionData={this.state.questionData}/>
+              {card}
            </div>
           </div>
           <button onClick={this.newCard}  className="btn btn-primary btn-lg">Next Question!</button>
